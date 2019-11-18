@@ -1,7 +1,8 @@
 package com.yu.hu.common.util;
 
+import android.content.Context;
+
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.Utils;
 
 /**
  * Created by Hy on 2019/11/16 20:31
@@ -21,8 +22,8 @@ public class ConvertUtil {
      * @return value of px
      * @see ConvertUtils#sp2px(float)
      */
-    public static int sp2px(final float spValue) {
-        final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
+    public static int sp2px(Context context, final float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -33,8 +34,8 @@ public class ConvertUtil {
      * @return value of px
      * @see ConvertUtils#dp2px(float)
      */
-    public static int dp2px(final float dpValue) {
-        final float scale = Utils.getApp().getResources().getDisplayMetrics().density;
+    public static int dp2px(Context context, final float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
