@@ -30,6 +30,13 @@ public class LogUtil {
         e(TAG, s);
     }
 
+    /**
+     * 不受{@link #debug}控制
+     */
+    public static void a(String s) {
+        a(TAG, s);
+    }
+
     public static void i(final String tag, String s) {
         if (debug) {
             Log.i(tag, s);
@@ -54,5 +61,8 @@ public class LogUtil {
         }
     }
 
+    public static void a(final String tag, String s) {
+        Log.w(tag, s);
+    }
 
 }
