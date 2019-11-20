@@ -14,12 +14,12 @@ public class LogUtil {
 
     private static final String TAG = LogUtil.class.getSimpleName();
 
-    public static void i(String s) {
-        i(TAG, s);
-    }
-
     public static void d(String s) {
         d(TAG, s);
+    }
+
+    public static void i(String s) {
+        i(TAG, s);
     }
 
     public static void w(String s) {
@@ -32,20 +32,30 @@ public class LogUtil {
 
     /**
      * 不受{@link #debug}控制
+     * 用于一些允许范围为的异常捕获的打印
      */
-    public static void a(String s) {
-        a(TAG, s);
+    public static void info(String s) {
+        info(TAG, s);
+    }
+
+    /**
+     * 不受{@link #debug}控制
+     * 用于一些重要信息的打印
+     */
+    public static void warn(String s) {
+        warn(TAG, s);
+    }
+
+
+    public static void d(final String tag, String s) {
+        if (debug) {
+            Log.d(tag, s);
+        }
     }
 
     public static void i(final String tag, String s) {
         if (debug) {
             Log.i(tag, s);
-        }
-    }
-
-    public static void d(final String tag, String s) {
-        if (debug) {
-            Log.d(tag, s);
         }
     }
 
@@ -61,7 +71,11 @@ public class LogUtil {
         }
     }
 
-    public static void a(final String tag, String s) {
+    public static void info(final String tag, String s) {
+        Log.i(tag, s);
+    }
+
+    public static void warn(final String tag, String s) {
         Log.w(tag, s);
     }
 
