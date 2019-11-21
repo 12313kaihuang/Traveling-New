@@ -4,7 +4,6 @@ import android.os.Build;
 import android.util.Base64;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.StandaloneActionMode;
 
 import com.blankj.utilcode.util.EncryptUtils;
 
@@ -17,10 +16,36 @@ import java.util.Random;
  * <p>
  * 加密解密相关
  *
- * @see EncryptUtils
+ * @see SimpleEncryptImpl 基于Base64的简单加密/解密
+ * @see RandomEncryptImpl 基于Base64的随机加密/解密
+ * @see EncryptUtils  AndroidUtilCode
  */
 @SuppressWarnings("unused")
 public class EncryptUtil {
+
+    /**
+     * 便于调用
+     * 加密
+     *
+     * @see SimpleEncryptImpl
+     */
+    public String encrypt(String value) {
+        return getSimpleEncrypt().encrypt(value);
+    }
+
+    /**
+     * 便于调用
+     * 解密
+     *
+     * @see SimpleEncryptImpl
+     */
+    @NonNull
+    public String decrypt(String value) {
+        return getSimpleEncrypt().decrypt(value);
+    }
+
+
+    /* ******************以下是单例类******************* */
 
     /**
      * 使用单例模式
@@ -73,6 +98,10 @@ public class EncryptUtil {
         }
         return sINSTANCE_RANDOM;
     }
+
+
+    /* ******************以下是具体实现类******************* */
+
 
     /**
      * base64加密
@@ -190,11 +219,9 @@ public class EncryptUtil {
          * @return 二次加密后的串
          */
         private String random(String encodeString) {
-            LogUtil.d("加密串：" + encodeString);
             int prefix = mRandom.nextInt(encodeString.length());
             prefix = prefix > PREFIX_MAX ? PREFIX_MAX : prefix;
             char pChar = (char) (PREFIX + prefix);
-            LogUtil.d("prefix = " + prefix);
             StringBuilder sBuilder = new StringBuilder().append(pChar);
             for (int i = 0; i < encodeString.length(); i++) {
                 sBuilder.append(encodeString.charAt(i));
@@ -213,10 +240,9 @@ public class EncryptUtil {
             int prefix = decryptString.charAt(0) - PREFIX;
             StringBuilder builder = new StringBuilder();
             for (int i = 1; i < decryptString.length(); i++) {
-                if (i == prefix - 1) continue;
+                if (i == prefix + 2) continue;
                 builder.append(decryptString.charAt(i));
             }
-            LogUtil.d("str = " + builder.toString());
             return builder.toString();
         }
     }
