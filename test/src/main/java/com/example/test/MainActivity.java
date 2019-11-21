@@ -2,6 +2,7 @@ package com.example.test;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(textView.getText())) {
-                    String encrypt = EncryptUtil.getSimpleEncrypt().encrypt(textView.getText().toString());
-                    LogUtil.d("encrypt = " + encrypt);
-                    String decrypt = EncryptUtil.getSimpleEncrypt().decrypt(encrypt);
-                    LogUtil.d("decrypt = " + decrypt);
-                    Toast.makeText(MainActivity.this, "encrypt = " + encrypt, Toast.LENGTH_SHORT).show();
+                    String encrypt = EncryptUtil.getRandomEncrypt().encrypt(textView.getText().toString());
+                    //String encrypt = Base64.encodeToString(textView.getText().toString().getBytes(), Base64.DEFAULT);
+                    LogUtil.d("加密后 = " + encrypt);
+                    String decrypt = EncryptUtil.getRandomEncrypt().decrypt(encrypt);
+                    //String decrypt = new String(Base64.decode(encrypt.getBytes(), Base64.DEFAULT));
+                    LogUtil.d("解密 = " + decrypt);
+                    Toast.makeText(MainActivity.this, "encrypt = " + decrypt, Toast.LENGTH_SHORT).show();
                 }
             }
         });

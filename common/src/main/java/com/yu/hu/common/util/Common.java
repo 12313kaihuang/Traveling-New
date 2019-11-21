@@ -24,5 +24,5 @@ public class Common {
      *
      * @see EncryptUtil.SimpleEncryptImpl
      */
-    public static final String SIMPLE_ENCRYPT_PRE = "Tra";
+    public static final String SIMPLE_ENCRYPT_PREFIX = "Tra";
 }

@@ -10,6 +10,11 @@ import android.util.Log;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class LogUtil {
 
+    /**
+     * 是否开启debug（是否打印相应log）
+     *
+     * @see Common#DEBUG_LOG
+     */
     private static final boolean debug = Common.DEBUG_LOG;
 
     private static final String TAG = LogUtil.class.getSimpleName();
