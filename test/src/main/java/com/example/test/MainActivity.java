@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,18 +9,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.yu.hu.common.dialog.LoadingDialog;
 import com.yu.hu.common.util.EncryptUtil;
 import com.yu.hu.common.util.LogUtil;
 import com.yu.hu.traveling.R;
+import com.yu.hu.traveling.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 
         final TextView textView = findViewById(R.id.et_input);
@@ -53,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
                         .show(getSupportFragmentManager());
 
 
+            }
+        });
+
+        binding.test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(new Intent(MainActivity.this, SecondActivity.class));
             }
         });
     }
