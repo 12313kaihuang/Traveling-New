@@ -51,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoadingDialog.Builder().setContent("sss").build().show(getSupportFragmentManager());
-
-
+               LoadingDialog.newInstance().setContent("sss").show(getSupportFragmentManager());
             }
         });
     }

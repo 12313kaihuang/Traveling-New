@@ -5,21 +5,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.yu.hu.common.util.LogUtil;
 
 /**
  * Created by Hy on 2019/11/18 19:51
  * <p>
  * dialog基类
  **/
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "unchecked"})
 public abstract class BaseDialog extends DialogFragment {
-
-    protected static final String KEY_BUILDER = "key_builder";
 
     protected Context mContext;
     protected LayoutInflater mLayoutInflater;
+
+    public void show(FragmentManager fragmentManager) {
+        show(fragmentManager, null);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +40,18 @@ public abstract class BaseDialog extends DialogFragment {
     protected void init() {
         mContext = getContext();
         mLayoutInflater = LayoutInflater.from(mContext);
+
+        if (getArguments() != null) {
+            initArguments(getArguments());
+        }
+    }
+
+    /**
+     * arguments的一些初始化操作
+     */
+    @CallSuper
+    protected void initArguments(@NonNull Bundle arguments) {
+
     }
 
     {

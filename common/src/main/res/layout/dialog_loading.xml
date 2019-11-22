@@ -3,33 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-            <variable
-                name="builder"
-                type="com.yu.hu.common.dialog.LoadingDialog.Builder" />
+
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="6dp">
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="6dp" />
 
         <TextView
-            android:text="@{builder.getContent()}"
-            android:textSize="15sp"
             android:id="@+id/tv_content"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:gravity="center"
+            android:text="加载中.."
             android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
             tools:text="加载中.." />
     </LinearLayout>
 </layout>
