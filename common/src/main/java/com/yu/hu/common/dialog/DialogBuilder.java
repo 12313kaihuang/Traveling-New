@@ -1,15 +1,19 @@
 package com.yu.hu.common.dialog;
 
 
-import android.content.Context;
+import android.text.TextUtils;
+
+import androidx.fragment.app.FragmentManager;
 
 /**
  * builder基类 属性都置为protected便于子类访问，getter方法由子类实现
  */
-@SuppressWarnings("unused")
-public abstract class DialogBuilder {
+@SuppressWarnings({"unused", "WeakerAccess"})
+public abstract class DialogBuilder<T extends BaseDialog> {
 
-    protected Context context;
+    protected String showTag;
+
+    protected FragmentManager fragmentManager;
 
     /**
      * 标题
@@ -32,13 +36,22 @@ public abstract class DialogBuilder {
      */
     protected boolean autoDismiss;
 
-    public DialogBuilder(Context context) {
-        this.context = context;
+    public DialogBuilder(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
     }
 
-    public abstract <T extends BaseDialog> T build();
+    public DialogBuilder(FragmentManager fragmentManager, String showTag) {
+        this.showTag = showTag;
+        this.fragmentManager = fragmentManager;
+    }
+
+    public abstract T build();
 
     public void show() {
-        build().show();
+        if (TextUtils.isEmpty(showTag)) {
+
+        }
+
     }
+
 }

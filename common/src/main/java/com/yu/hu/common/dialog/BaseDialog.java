@@ -1,11 +1,12 @@
 package com.yu.hu.common.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Created by Hy on 2019/11/18 19:51
@@ -13,26 +14,31 @@ import androidx.annotation.StyleRes;
  * dialog基类
  **/
 @SuppressWarnings({"WeakerAccess", "unused"})
-public abstract class BaseDialog extends Dialog {
+public abstract class BaseDialog extends DialogFragment {
 
-    public BaseDialog(@NonNull Context context) {
-        this(context, getThemeResId());
-    }
+    protected static final String KEY_BUILDER = "key_builder";
 
-    public BaseDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
+    protected Context mContext;
+    protected LayoutInflater mLayoutInflater;
 
-    public BaseDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
     }
 
     /**
-     * @return theme资源id
+     * 一些初始化操作
      */
-    @StyleRes
-    protected static int getThemeResId() {
-        return 0;
+    @CallSuper
+    protected void init() {
+        mContext = getContext();
+        mLayoutInflater = LayoutInflater.from(mContext);
+    }
+
+    {
+        //https://developer.android.com/reference/android/app/DialogFragment#AlertDialog  官方文档
+        //https://blog.csdn.net/xiaohui2015/article/details/79374394  为什么要用bundle传递数据
     }
 
 

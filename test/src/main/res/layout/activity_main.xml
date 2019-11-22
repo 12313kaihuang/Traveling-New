@@ -23,42 +23,9 @@
         android:layout_height="wrap_content"
         android:text="encrypt" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Button
+        android:id="@+id/loadingBtn"
+        android:text="loading Dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="21dp"
-            android:background="#F5F5F5"
-            app:layout_constraintEnd_toStartOf="@id/iv_wx_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_wx_login" />
-
-        <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/iv_wx_login"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:src="@drawable/ic_launcher_background" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="21dp"
-            android:background="#F5F5F5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_wx_login"
-            app:layout_constraintTop_toTopOf="@id/iv_wx_login" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

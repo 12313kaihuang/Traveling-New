@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.yu.hu.common.dialog.LoadingDialog;
 import com.yu.hu.common.util.EncryptUtil;
 import com.yu.hu.common.util.LogUtil;
 import com.yu.hu.traveling.R;
@@ -45,5 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
         boolean equals = TextUtils.equals(null, "");
 
+
+        Button button1 = findViewById(R.id.loadingBtn);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new LoadingDialog.Builder().setContent("sss").build().show(getSupportFragmentManager());
+
+
+            }
+        });
     }
 }
