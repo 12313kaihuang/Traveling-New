@@ -19,69 +19,69 @@ public class LogUtil {
 
     private static final String TAG = LogUtil.class.getSimpleName();
 
-    public static void d(String s) {
-        d(TAG, s);
+    public static void d(String content) {
+        d(TAG, content);
     }
 
-    public static void i(String s) {
-        i(TAG, s);
+    public static void i(String content) {
+        i(TAG, content);
     }
 
-    public static void w(String s) {
-        w(TAG, s);
+    public static void w(String content) {
+        w(TAG, content);
     }
 
-    public static void e(String s) {
-        e(TAG, s);
+    public static void e(String content) {
+        e(TAG, content);
     }
 
     /**
      * 不受{@link #debug}控制
      * 用于一些允许范围为的异常捕获的打印
      */
-    public static void info(String s) {
-        info(TAG, s);
+    public static void info(String content) {
+        info(TAG, content);
     }
 
     /**
      * 不受{@link #debug}控制
      * 用于一些重要信息的打印
      */
-    public static void warn(String s) {
-        warn(TAG, s);
+    public static void warn(String content) {
+        warn(TAG, content);
     }
 
 
-    public static void d(final String tag, String s) {
+    public static void d(final String tag, String content) {
         if (debug) {
-            Log.d(tag, s);
+            Log.d(tag, content);
         }
     }
 
-    public static void i(final String tag, String s) {
+    public static void i(final String tag, String content) {
         if (debug) {
-            Log.i(tag, s);
+            Log.i(tag, content);
         }
     }
 
-    public static void w(final String tag, String s) {
+    public static void w(final String tag, String content) {
         if (debug) {
-            Log.w(tag, s);
+            Log.w(tag, content);
         }
     }
 
-    public static void e(final String tag, String s) {
+    public static void e(final String tag, String content) {
         if (debug) {
-            Log.e(tag, s);
+            Log.e(tag, content);
         }
     }
 
-    public static void info(final String tag, String s) {
-        Log.i(tag, s);
+    public static void info(final String tag, String content) {
+        Log.i(tag, content);
     }
 
-    public static void warn(final String tag, String s) {
-        Log.w(tag, s);
+    public static void warn(final String tag, String content) {
+        Log.w(tag, content);
     }
 
 }
