@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         final TextView textView = findViewById(R.id.et_input);
         Button button = findViewById(R.id.encryptBtn);
 
@@ -45,12 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
         boolean equals = TextUtils.equals(null, "");
 
-
         Button button1 = findViewById(R.id.loadingBtn);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               LoadingDialog.newInstance().setContent("sss").show(getSupportFragmentManager());
+                LoadingDialog.newInstance()
+                        .setContent("加载中..")
+                        .show(getSupportFragmentManager());
+
+
             }
         });
     }

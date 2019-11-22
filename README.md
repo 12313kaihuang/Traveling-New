@@ -1,6 +1,6 @@
 # Traveling-New
 
-一款基于**`Jetpack`**的旅游社交类App。
+一款基于**Jetpack**的旅游社交类App。
 
 ## 项目介绍
 ### application
