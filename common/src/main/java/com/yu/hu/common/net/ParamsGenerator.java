@@ -4,7 +4,7 @@ package com.yu.hu.common.net;
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.JsonObject;
 import com.yu.hu.common.util.EncryptUtil;
-import com.yu.hu.common.util.IEncrypt;
+import com.yu.hu.common.util.encrypt.IEncrypt;
 
 /**
  * create by hy on 2019/11/18 21:21
