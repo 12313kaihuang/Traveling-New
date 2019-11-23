@@ -31,7 +31,14 @@ import com.yu.hu.common.util.LogUtil;
  * Created by Hy on 2019/11/18 19:51
  * <p>
  * dialog基类
- **/
+ * <p>
+ * 有一些属性是预先设置的，如{@link #title}，
+ * 没有对外暴露，由具体实现类选择是否需要对外暴露。
+ *
+ * @param <DF> 具体的BaseDialog实现类
+ * @param <DB> Dialog对应的DataBinding
+ * @see LoadingDialog
+ */
 @SuppressWarnings({"WeakerAccess", "unused", "unchecked"})
 public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBinding> extends DialogFragment {
 

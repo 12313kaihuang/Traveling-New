@@ -97,8 +97,4 @@ public class EncryptUtil {
         return sINSTANCE_RANDOM;
     }
 
-
-    /* ******************以下是具体实现类******************* */
-
-
 }
