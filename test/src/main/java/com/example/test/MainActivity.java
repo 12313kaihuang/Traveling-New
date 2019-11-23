@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 LoadingDialog.newInstance()
                         .setContent("加载中..")
+                        .setContentColor(R.color.black)
+                        .setProgressBarColor(R.color.colorAccent)
                         .show(getSupportFragmentManager());
 
 

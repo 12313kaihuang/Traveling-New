@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -64,34 +65,36 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     /**
      * 点击按钮后是否自动dismiss
      */
-    protected boolean autoDismiss;
+    protected boolean autoDismiss = true;
 
     protected String title;
 
-    @ColorInt
+    @ColorRes
     protected int titleColor;
 
 
     protected String content;
 
-    @ColorInt
+    @ColorRes
     protected int contentColor;
 
-    //右边按钮
-    protected String positiveBtnText;
-
-    @ColorInt
-    protected int positiveBtnColor;
-
-    protected BtnClickListener positiveBtnClickListener;
 
     //左边按钮
     protected String negativeBtnText;
 
-    @ColorInt
+    @ColorRes
     protected int negativeBtnColor;
 
     protected BtnClickListener negativeBtnClickListener;
+
+
+    //右边按钮
+    protected String positiveBtnText;
+
+    @ColorRes
+    protected int positiveBtnColor;
+
+    protected BtnClickListener positiveBtnClickListener;
 
     /**
      * 简化show方法
@@ -108,6 +111,13 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      * eg:DialogLoadingBinding.inflate(mLayoutInflater, container, false)
      */
     protected abstract DB getDataBinding(@Nullable ViewGroup container);
+
+    @CallSuper
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,18 +141,20 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     /**
      * 第一步执行
      * 一些初始化操作
+     * <p>
+     * 注意这些方法都是在{@link #show(FragmentManager)}方法调用后才执行的，
+     * 及在Fragment创建时才一一开始执行
      *
      * @see #onCreate(Bundle)
      */
     @CallSuper
     protected void init() {
 
+        this.mLayoutInflater = LayoutInflater.from(mContext);
+
         if (getArguments() != null) {
             initArguments(getArguments());
         }
-
-        mContext = getContext();
-        mLayoutInflater = LayoutInflater.from(mContext);
     }
 
 
@@ -160,6 +172,8 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     /**
      * 第三步执行
      * 初始化View
+     * 尽量不要执行耗时操作，否则会影响dialog的显示，
+     * 点击事件可以放在{@link #initEvents()}中执行
      *
      * @param savedInstanceState savedInstanceState
      * @see #onCreateView(LayoutInflater, ViewGroup, Bundle)
