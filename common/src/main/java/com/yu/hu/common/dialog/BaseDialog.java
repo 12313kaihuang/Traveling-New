@@ -13,10 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
@@ -67,23 +67,34 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      */
     protected boolean autoDismiss = true;
 
+    //title
     protected String title;
 
+    @StringRes
+    protected int titleRes;
+
     @ColorRes
-    protected int titleColor;
+    protected int titleColorRes;
 
 
+    //content
     protected String content;
 
+    @StringRes
+    protected int contentRes;
+
     @ColorRes
-    protected int contentColor;
+    protected int contentColorRes;
 
 
     //左边按钮
     protected String negativeBtnText;
 
+    @StringRes
+    protected int negativeBtnTextRes;
+
     @ColorRes
-    protected int negativeBtnColor;
+    protected int negativeBtnColorRes;
 
     protected BtnClickListener negativeBtnClickListener;
 
@@ -91,8 +102,11 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     //右边按钮
     protected String positiveBtnText;
 
+    @StringRes
+    protected int positiveBtnTextRes;
+
     @ColorRes
-    protected int positiveBtnColor;
+    protected int positiveBtnColorRes;
 
     protected BtnClickListener positiveBtnClickListener;
 
@@ -122,14 +136,14 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
+        onInit();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mDataBinding = getDataBinding(container);
-        initView(savedInstanceState);
+        onInitView(savedInstanceState);
         return mDataBinding.getRoot();
     }
 
@@ -148,12 +162,24 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      * @see #onCreate(Bundle)
      */
     @CallSuper
-    protected void init() {
+    protected void onInit() {
 
         this.mLayoutInflater = LayoutInflater.from(mContext);
 
+        this.title = titleRes == 0 ? title
+                : getResources().getString(titleRes);
+
+        this.content = contentRes == 0 ? content
+                : getResources().getString(contentRes);
+
+        this.positiveBtnText = positiveBtnTextRes == 0 ? positiveBtnText
+                : getResources().getString(positiveBtnTextRes);
+
+        this.negativeBtnText = negativeBtnTextRes == 0 ? negativeBtnText
+                : getResources().getString(negativeBtnTextRes);
+
         if (getArguments() != null) {
-            initArguments(getArguments());
+            onInitArguments(getArguments());
         }
     }
 
@@ -162,9 +188,9 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      * 第二步执行
      * arguments的一些初始化操作
      *
-     * @see #init()
+     * @see #onInit()
      */
-    protected void initArguments(@NonNull Bundle arguments) {
+    protected void onInitArguments(@NonNull Bundle arguments) {
 
     }
 
@@ -173,13 +199,13 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      * 第三步执行
      * 初始化View
      * 尽量不要执行耗时操作，否则会影响dialog的显示，
-     * 点击事件可以放在{@link #initEvents()}中执行
+     * 点击事件可以放在{@link #onInitEvents()}中执行
      *
      * @param savedInstanceState savedInstanceState
      * @see #onCreateView(LayoutInflater, ViewGroup, Bundle)
      */
     @CallSuper
-    protected void initView(@Nullable Bundle savedInstanceState) {
+    protected void onInitView(@Nullable Bundle savedInstanceState) {
         setStyle();
     }
 
@@ -189,7 +215,7 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      *
      * @see #onViewCreated(View, Bundle)
      */
-    protected void initEvents() {
+    protected void onInitEvents() {
 
     }
 
@@ -235,12 +261,109 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
 
     }
 
+
+    /* ***************protected 类型  可通过子类重写暴露给调用者***************** */
+
+    /**
+     * 设置标题
+     *
+     * @param titleRes StringRes
+     */
+    @CallSuper
+    protected DF setTitle(@StringRes int titleRes) {
+        this.titleRes = titleRes;
+        return (DF) this;
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title content
+     */
+    @CallSuper
+    protected DF setTitle(String title) {
+        this.titleRes = 0;
+        this.title = title;
+        return (DF) this;
+    }
+
+    /**
+     * 设置提示内容
+     *
+     * @param contentRes StringRes
+     */
+    @CallSuper
+    protected DF setContent(@StringRes int contentRes) {
+        this.contentRes = contentRes;
+        return (DF) this;
+    }
+
+    /**
+     * 设置提示内容
+     *
+     * @param content content
+     */
+    @CallSuper
+    protected DF setContent(String content) {
+        this.contentRes = 0;
+        this.content = content;
+        return (DF) this;
+    }
+
+    /**
+     * 设置NegativeBtn 左边按钮
+     *
+     * @param textRes StringRes
+     */
+    @CallSuper
+    protected DF setNegativeBtnText(@StringRes int textRes) {
+        this.negativeBtnTextRes = textRes;
+        return (DF) this;
+    }
+
+    /**
+     * 设置NegativeBtn 左边按钮
+     *
+     * @param text text
+     */
+    @CallSuper
+    protected DF setNegativeBtnText(String text) {
+        this.negativeBtnTextRes = 0;
+        this.negativeBtnText = text;
+        return (DF) this;
+    }
+
+    /**
+     * 设置PositiveBtn 右边按钮
+     *
+     * @param textRes StringRes
+     */
+    @CallSuper
+    protected DF setPositiveBtnText(@StringRes int textRes) {
+        this.positiveBtnTextRes = textRes;
+        return (DF) this;
+    }
+
+    /**
+     * 设置PositiveBtn 右边按钮
+     *
+     * @param text text
+     */
+    @CallSuper
+    protected DF setPositiveBtnText(String text) {
+        this.positiveBtnTextRes = 0;
+        this.positiveBtnText = text;
+        return (DF) this;
+    }
+
+    /* **************************通用的setter方法****************************** */
+
     public DF setCancelAbility(boolean cancelable) {
         setCancelable(cancelable);
         return (DF) this;
     }
 
-    protected DF setAutoDismiss(boolean autoDismiss) {
+    public DF setAutoDismiss(boolean autoDismiss) {
         this.autoDismiss = autoDismiss;
         return (DF) this;
     }

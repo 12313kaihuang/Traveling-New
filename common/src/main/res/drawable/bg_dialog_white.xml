@@ -5,7 +5,8 @@
     <padding
         android:right="@dimen/smallMarginSize"
         android:top="@dimen/smallMarginSize"
-        android:left="@dimen/smallMarginSize"/>
+        android:left="@dimen/smallMarginSize"
+        android:bottom="@dimen/smallMarginSize"/>
     <corners android:radius="10dp" />
     <solid android:color="@color/white" />
 

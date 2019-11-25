@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 
         final TextView textView = findViewById(R.id.et_input);
@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoadingDialog.newInstance()
-                        .setContent("加载中..")
-                        .setContentColor(R.color.black)
-                        .setProgressBarColor(R.color.colorAccent)
+                        .setContent(R.string.app_name)
+                        .setContent(binding.etInput.getText().toString())
+                        .setContentColorResource(R.color.black)
+                        .setProgressBarColorResource(R.color.colorAccent)
                         .show(getSupportFragmentManager());
 
 
@@ -68,5 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 ActivityUtils.startActivity(new Intent(MainActivity.this, SecondActivity.class));
             }
         });
+
     }
 }

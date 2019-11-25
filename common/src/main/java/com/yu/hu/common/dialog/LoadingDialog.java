@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.yu.hu.common.R;
 import com.yu.hu.common.databinding.DialogLoadingBinding;
@@ -22,7 +23,7 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
      * progressBar的颜色
      */
     @ColorRes
-    private int progressBarColor;
+    private int progressBarColorRes;
 
     public static LoadingDialog newInstance() {
         return new LoadingDialog();
@@ -30,8 +31,8 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
 
     private LoadingDialog() {
         //初始化值
-        this.contentColor = R.color.colorPrimary;
-        this.progressBarColor = R.color.colorPrimary;
+        this.contentColorRes = R.color.colorPrimary;
+        this.progressBarColorRes = R.color.colorPrimary;
     }
 
     @Override
@@ -40,10 +41,15 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
     }
 
     @Override
-    protected void initView(@Nullable Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
+    protected void onInit() {
+        super.onInit();
+    }
+
+    @Override
+    protected void onInitView(@Nullable Bundle savedInstanceState) {
+        super.onInitView(savedInstanceState);
         mDataBinding.setLoadingText(content);
-        mDataBinding.tvContent.setTextColor(getResources().getColor(contentColor));
+        mDataBinding.tvContent.setTextColor(getResources().getColor(contentColorRes));
         setProgressBarColor();
     }
 
@@ -57,7 +63,7 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
         //默认
         states[1] = new int[]{};
 
-        int barColor = getResources().getColor(progressBarColor);
+        int barColor = getResources().getColor(progressBarColorRes);
         //状态对应颜色值（按下，默认）
         int[] colors = new int[]{barColor, barColor};
         ColorStateList colorList = new ColorStateList(states, colors);
@@ -70,11 +76,21 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
     /**
      * 设置提示内容
      *
+     * @param contentRes StringRes
+     */
+    @Override
+    public LoadingDialog setContent(@StringRes int contentRes) {
+        return super.setContent(contentRes);
+    }
+
+    /**
+     * 设置提示内容
+     *
      * @param content content
      */
+    @Override
     public LoadingDialog setContent(String content) {
-        this.content = content;
-        return this;
+        return super.setContent(content);
     }
 
     /**
@@ -82,9 +98,9 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
      *
      * @param displayColor color
      */
-    public LoadingDialog setDisplayColor(@ColorRes int displayColor) {
-        this.contentColor = displayColor;
-        this.progressBarColor = displayColor;
+    public LoadingDialog setDisplayColorResource(@ColorRes int displayColor) {
+        this.contentColorRes = displayColor;
+        this.progressBarColorRes = displayColor;
         return this;
     }
 
@@ -93,8 +109,8 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
      *
      * @param contentColor color
      */
-    public LoadingDialog setContentColor(@ColorRes int contentColor) {
-        this.contentColor = contentColor;
+    public LoadingDialog setContentColorResource(@ColorRes int contentColor) {
+        this.contentColorRes = contentColor;
         return this;
     }
 
@@ -103,8 +119,8 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
      *
      * @param progressBarColor color
      */
-    public LoadingDialog setProgressBarColor(@ColorRes int progressBarColor) {
-        this.progressBarColor = progressBarColor;
+    public LoadingDialog setProgressBarColorResource(@ColorRes int progressBarColor) {
+        this.progressBarColorRes = progressBarColor;
         return this;
     }
 
