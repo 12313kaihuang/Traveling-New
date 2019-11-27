@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.yu.hu.common.dialog.LoadingDialog;
+import com.yu.hu.common.util.CrashHandler;
 import com.yu.hu.common.util.EncryptUtil;
 import com.yu.hu.common.util.LogUtil;
 import com.yu.hu.traveling.R;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        CrashHandler.init();
 
         final TextView textView = findViewById(R.id.et_input);
         Button button = findViewById(R.id.encryptBtn);
@@ -70,5 +73,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.crashTestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = null;
+                context.setTheme(0);
+            }
+        });
     }
 }

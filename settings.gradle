@@ -1,2 +1,2 @@
-include ':app', ':common', ':test', ':mylibrary'
+include ':app', ':common', ':test'
 rootProject.name='Traveling-New'

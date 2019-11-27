@@ -7,7 +7,7 @@ implementation project(path: ':common')
 ```
 
 
-## [dialog](src/main/java/com/yu/hu/common/dialog)
+## [Dialog](src/main/java/com/yu/hu/common/dialog)
 基于**DialogFragment**的封装(见[BaseDialog](src\main\java\com\yu\hu\common\dialog\BaseDialog.java))，便于使用，例如[LoadingDialog](src\main\java\com\yu\hu\common\dialog\LoadingDialog.java)
 简单调用：
 ```java
@@ -21,6 +21,7 @@ LoadingDialog.newInstance()
 有一些是使用**AndroidUtilCode**实现的，一些是根据自己需要实现的：
 * [LogUtil](src/main/java/com/yu/hu/common/util/LogUtil.java) log打印相关。
 * [EncryptUtil](src/main/java/com/yu/hu/common/util/EncryptUtil.java)  加密相关，用于请求参数或结果的加密。
+* [CrashHandler](src/main/java/com/yu/hu/common/util/CrashHandler.java)  崩溃相关，需要init()才会生效。
 
 
 ## AndroidUtilCode
