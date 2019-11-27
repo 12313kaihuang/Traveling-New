@@ -7,4 +7,6 @@ ext{
     materialVersion = '1.0.0'
     recyclerViewVersion = '1.0.0'
     constraintLayoutVersion = '1.1.3'
+    RxJavaVersion = '2.2.15'
+    RxAndroidVersion = '2.1.1'
 }
