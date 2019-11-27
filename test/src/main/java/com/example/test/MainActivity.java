@@ -13,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.yu.hu.common.dialog.LoadingDialog;
 import com.yu.hu.common.util.CrashHandler;
 import com.yu.hu.common.util.EncryptUtil;
 import com.yu.hu.common.util.LogUtil;
+import com.yu.hu.common.util.ResourceUtil;
+import com.yu.hu.common.util.ThreadPool;
 import com.yu.hu.traveling.R;
 import com.yu.hu.traveling.databinding.ActivityMainBinding;
 
@@ -69,7 +72,13 @@ public class MainActivity extends AppCompatActivity {
         binding.test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                ThreadPool.main(new Runnable() {
+                    @Override
+                    public void run() {
+                        Thread thread = Thread.currentThread();
+                        ToastUtils.showShort(thread.getName());
+                    }
+                });
             }
         });
 

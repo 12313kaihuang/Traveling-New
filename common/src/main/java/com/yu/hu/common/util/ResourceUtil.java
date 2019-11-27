@@ -19,7 +19,7 @@ public class ResourceUtil {
      *
      * @see ResourceUtils#readAssets2List(String)
      */
-    public String readAssets2String(final String assetsFilePath) {
+    public static String readAssets2String(final String assetsFilePath) {
         return ResourceUtils.readAssets2String(assetsFilePath);
     }
 }
