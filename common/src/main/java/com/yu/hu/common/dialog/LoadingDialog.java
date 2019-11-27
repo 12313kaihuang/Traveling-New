@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
@@ -86,10 +87,11 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
     /**
      * 设置提示内容
      *
-     * @param content content
+     * @param content content 如果为空或空串则自动隐藏
+     * @see com.yu.hu.common.binding.BindingAdapter#setText(TextView, String)
      */
     @Override
-    public LoadingDialog setContent(String content) {
+    public LoadingDialog setContent(@Nullable String content) {
         return super.setContent(content);
     }
 
