@@ -14,11 +14,13 @@ import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -121,10 +123,13 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     }
 
     /**
-     * 创建DataBinding
-     * eg:DialogLoadingBinding.inflate(mLayoutInflater, container, false)
+     * 获取layoutId
+     * 也可以直接通过DataBinding做：eg:DialogLoadingBinding.inflate(mLayoutInflater, container, false)
+     *
+     * @see #onCreateView(LayoutInflater, ViewGroup, Bundle)
      */
-    protected abstract DB getDataBinding(@Nullable ViewGroup container);
+    @LayoutRes
+    protected abstract int getLayoutId();
 
     @CallSuper
     @Override
@@ -142,7 +147,7 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mDataBinding = getDataBinding(container);
+        mDataBinding = DataBindingUtil.inflate(mLayoutInflater, getLayoutId(), container, false);
         onInitView(savedInstanceState);
         return mDataBinding.getRoot();
     }

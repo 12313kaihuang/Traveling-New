@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -37,8 +36,8 @@ public class LoadingDialog extends BaseDialog<LoadingDialog, DialogLoadingBindin
     }
 
     @Override
-    protected DialogLoadingBinding getDataBinding(@Nullable ViewGroup container) {
-        return DialogLoadingBinding.inflate(mLayoutInflater, container, false);
+    protected int getLayoutId() {
+        return R.layout.dialog_loading;
     }
 
     @Override
