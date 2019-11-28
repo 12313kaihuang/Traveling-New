@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .setContent(mDataBinding.etInput.getText().toString())
                 .setContentColorResource(R.color.black)
                 .setProgressBarColorResource(R.color.colorAccent)
-                .show(getSupportFragmentManager()));
+                .show());
 
         mDataBinding.toSecond.setOnClickListener((v) -> {
             startActivity(new Intent(MainActivity.this, SecondActivity.class));

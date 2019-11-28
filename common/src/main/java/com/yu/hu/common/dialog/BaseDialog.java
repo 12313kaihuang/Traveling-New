@@ -1,10 +1,14 @@
 package com.yu.hu.common.dialog;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +28,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.yu.hu.common.R;
+import com.yu.hu.common.application.BaseApplication;
 import com.yu.hu.common.util.LogUtil;
+
+import java.lang.reflect.InvocationTargetException;
 
 
 /**
@@ -111,6 +120,26 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     protected int positiveBtnColorRes;
 
     protected BtnClickListener positiveBtnClickListener;
+
+    /**
+     * 需要注册{@link BaseApplication}才能使用
+     * <p>
+     * 通过反射获取到Application然后获取到站顶Activity
+     */
+    public final void show() {
+        String tag = getClass().getSimpleName();
+        Application applicationByReflect = getApplicationByReflect();
+        Log.d(tag, "show: Application = " + (applicationByReflect == null ? "null" : applicationByReflect.getClass().getName()));
+        if (applicationByReflect instanceof BaseApplication) {
+            Activity topActivity = ((BaseApplication) applicationByReflect).getTopActivity();
+            Log.d(tag, "show: topActivity = " + (topActivity == null ? "null" : topActivity.getClass().getName()));
+            if (topActivity instanceof FragmentActivity) {
+                show(((FragmentActivity) topActivity).getSupportFragmentManager());
+                return;
+            }
+        }
+        ToastUtils.showShort(tag + " show failed");
+    }
 
     /**
      * 简化show方法
@@ -396,6 +425,33 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     public DF setAnimation(@StyleRes int mAnimation) {
         this.mAnimation = mAnimation;
         return (DF) this;
+    }
+
+    /**
+     * 通过反射获取Application
+     *
+     * @return Application
+     */
+    private static Application getApplicationByReflect() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object thread = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(thread);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            return (Application) app;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("u should init first");
     }
 
     /**
