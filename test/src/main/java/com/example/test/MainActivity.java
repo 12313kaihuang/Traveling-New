@@ -9,17 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.google.gson.reflect.TypeToken;
 import com.yu.hu.common.activity.BaseActivity;
 import com.yu.hu.common.dialog.LoadingDialog;
-import com.yu.hu.common.entity.RequestResult;
 import com.yu.hu.common.util.CrashHandler;
 import com.yu.hu.common.util.EncryptUtil;
 import com.yu.hu.common.util.LogUtil;
-import com.yu.hu.common.util.ResourceUtil;
-import com.yu.hu.common.util.ThreadPool;
 import com.yu.hu.traveling.R;
 import com.yu.hu.traveling.databinding.ActivityMainBinding;
 
@@ -53,16 +47,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .setProgressBarColorResource(R.color.colorAccent)
                 .show(getSupportFragmentManager()));
 
-        mDataBinding.test.setOnClickListener((v) -> {
-            String result = ResourceUtil.readAssets2String("test.json");
-            RequestResult<Student> requestResult = GsonUtils.fromJson(result,new TypeToken<RequestResult<Student>>(){}.getType());
-            ToastUtils.showShort(requestResult.response.name);
+        mDataBinding.toSecond.setOnClickListener((v) -> {
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
         });
-
 
         mDataBinding.crashTestBtn.setOnClickListener(v -> {
             Context context = null;
             context.setTheme(0);
+        });
+
+        mDataBinding.test.setOnClickListener((v) -> {
+
         });
     }
 

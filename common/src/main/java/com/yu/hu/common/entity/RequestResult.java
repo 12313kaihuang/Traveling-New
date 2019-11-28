@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * 网络请求返回结果
  * 统一使用{@link SerializedName}注解，这样不用配置进proguard-rules.pro
  **/
+@SuppressWarnings("unused")
 public class RequestResult<T> {
 
     @SerializedName("code")

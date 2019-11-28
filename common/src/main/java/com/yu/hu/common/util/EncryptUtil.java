@@ -22,13 +22,18 @@ import com.yu.hu.common.util.encrypt.SimpleEncryptImpl;
 public class EncryptUtil {
 
     /**
+     * 默认的encrypt
+     */
+    private static IEncrypt sDEFAULT_ENCRYPT = getSimpleEncrypt();
+
+    /**
      * 便于调用
      * 加密
      *
      * @see SimpleEncryptImpl
      */
     public static String encrypt(String value) {
-        return getSimpleEncrypt().encrypt(value);
+        return sDEFAULT_ENCRYPT.encrypt(value);
     }
 
     /**
@@ -39,7 +44,7 @@ public class EncryptUtil {
      */
     @NonNull
     public static String decrypt(String value) {
-        return getSimpleEncrypt().decrypt(value);
+        return sDEFAULT_ENCRYPT.decrypt(value);
     }
 
 

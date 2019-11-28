@@ -40,16 +40,22 @@
                 android:text="loading Dialog" />
 
             <Button
-                android:id="@+id/test"
+                android:id="@+id/to_Second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test" />
+                android:text="to Second" />
 
             <Button
                 android:id="@+id/crash_test_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="crash test" />
+
+            <Button
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="test" />
         </LinearLayout>
     </ScrollView>
 </layout>

@@ -4,7 +4,6 @@ package com.yu.hu.common.net;
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.JsonObject;
 import com.yu.hu.common.util.EncryptUtil;
-import com.yu.hu.common.util.encrypt.IEncrypt;
 
 /**
  * create by hy on 2019/11/18 21:21
@@ -19,14 +18,9 @@ public class ParamsGenerator implements IParamsGenerator {
      */
     protected JsonObject mJsonObject;
 
-    /**
-     * 用于参数加密
-     */
-    protected IEncrypt mIEncrypt;
 
     public ParamsGenerator() {
         mJsonObject = new JsonObject();
-        mIEncrypt = EncryptUtil.getSimpleEncrypt();
     }
 
     @Override
@@ -42,7 +36,7 @@ public class ParamsGenerator implements IParamsGenerator {
 
     @Override
     public String encrypt() {
-        return mIEncrypt.encrypt(generate());
+        return EncryptUtil.encrypt(generate());
     }
 
 }
