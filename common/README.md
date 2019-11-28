@@ -3,7 +3,22 @@
 ## 使用
 `build.gradle`中加入依赖即可：
 ```xml
-implementation project(path: ':common')
+android {
+    ...
+
+    //开启DataBinding
+    dataBinding {
+        enabled true
+    }
+}
+
+
+dependencies {
+    ...
+    
+    //引入项目
+    implementation project(path: ':common')
+}
 ```
 
 

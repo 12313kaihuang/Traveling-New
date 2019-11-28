@@ -16,7 +16,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        boolean equals = TextUtils.equals(null, "");
-        Toast.makeText(this, "equals = " + equals, Toast.LENGTH_SHORT).show();
     }
 }
