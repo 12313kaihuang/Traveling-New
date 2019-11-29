@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yu.hu.common.R;
 import com.yu.hu.common.application.BaseApplication;
+import com.yu.hu.common.exception.DialogShowErrorException;
 import com.yu.hu.common.util.LogUtil;
 
 import java.lang.reflect.InvocationTargetException;
@@ -46,9 +47,13 @@ import java.lang.reflect.InvocationTargetException;
  * <p>
  * 有一些属性是预先设置的，如{@link #title}，
  * 没有对外暴露，由具体实现类选择是否需要对外暴露。
+ * <p>
+ * 注意：
+ * {@link #show()}该方法需要使用{@link BaseApplication}或者继承该类才有用，否则会抛出异常。
  *
  * @param <DF> 具体的BaseDialog实现类
  * @param <DB> Dialog对应的DataBinding
+ * @see #show() 该方法需要使用{@link BaseApplication}或者继承该类才有用，否则会抛出异常。
  * @see LoadingDialog
  */
 @SuppressWarnings({"WeakerAccess", "unused", "unchecked"})
@@ -124,21 +129,26 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
     /**
      * 需要注册{@link BaseApplication}才能使用
      * <p>
-     * 通过反射获取到Application然后获取到站顶Activity
+     * 通过反射获取到Application然后获取到栈顶Activity
+     *
+     * @throws DialogShowErrorException when application or topActivity is not needed
      */
     public final void show() {
         String tag = getClass().getSimpleName();
+        String errorInfo = null;
         Application applicationByReflect = getApplicationByReflect();
-        Log.d(tag, "show: Application = " + (applicationByReflect == null ? "null" : applicationByReflect.getClass().getName()));
+        LogUtil.info(tag, "show: Application = " + (applicationByReflect == null ? "null" : applicationByReflect.getClass().getName()));
         if (applicationByReflect instanceof BaseApplication) {
             Activity topActivity = ((BaseApplication) applicationByReflect).getTopActivity();
-            Log.d(tag, "show: topActivity = " + (topActivity == null ? "null" : topActivity.getClass().getName()));
+            LogUtil.info(tag, "show: topActivity = " + (topActivity == null ? "null" : topActivity.getClass().getName()));
+            //这里也需要注意 fragmentManager是从FragmentActivity中获取的
             if (topActivity instanceof FragmentActivity) {
-                show(((FragmentActivity) topActivity).getSupportFragmentManager());
+                FragmentActivity fragmentActivity = (FragmentActivity) topActivity;
+                show(fragmentActivity.getSupportFragmentManager());
                 return;
             }
         }
-        ToastUtils.showShort(tag + " show failed");
+        throw new DialogShowErrorException("Application or TopActivity is error");
     }
 
     /**
