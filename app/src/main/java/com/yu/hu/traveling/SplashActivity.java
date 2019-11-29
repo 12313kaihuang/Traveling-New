@@ -27,21 +27,15 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //冷启动优化 把预先显示的backGround去掉
-        setWindowBackgroundDrawable(null);
         super.onCreate(savedInstanceState);
         ToastUtils.showShort("show");
 
-        new Handler(Looper.getMainLooper()).postDelayed(() -> startActivity(new Intent(mContext, MainActivity.class)), 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            startActivity(new Intent(mContext, MainActivity.class));
+            //finish();
+        }, 2000);
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private void setWindowBackgroundDrawable(@Nullable Drawable drawable) {
-        Window window = getWindow();
-        if (window != null) {
-            window.setBackgroundDrawable(drawable);
-        }
-    }
 
     @Override
     protected int getLayoutId() {
