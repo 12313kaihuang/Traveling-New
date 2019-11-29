@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.yu.hu.common.R;
 import com.yu.hu.common.dialog.LoadingDialog;
@@ -26,6 +28,7 @@ import com.yu.hu.common.dialog.LoadingDialog;
  * 属性：
  * @see #mContext  == this
  * @see #mDataBinding mDataBinding
+ * @see #mViewModelProvider viewModelProvider
  * @see #mLoadingDialog mLoadingDialog
  */
 @SuppressWarnings("unused")
@@ -33,6 +36,7 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
 
     protected Context mContext;
     protected D mDataBinding;
+    protected ViewModelProvider mViewModelProvider;
     protected LoadingDialog mLoadingDialog;
 
     @CallSuper
@@ -41,10 +45,24 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
         super.onCreate(savedInstanceState);
         this.mContext = this;
         mDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+        //要设置LifecycleOwner 否则ViewModel数据发生变化时不会收到通知（视图不会发生变化）
+        mDataBinding.setLifecycleOwner(this);
+        mViewModelProvider = new ViewModelProvider(this);
     }
 
     @LayoutRes
     protected abstract int getLayoutId();
+
+    /**
+     * 获取ViewModel实例
+     *
+     * @param modelClass ViewModel.class
+     * @param <VM>       ViewModel类型
+     * @return ViewModel
+     */
+    public <VM extends ViewModel> VM getViewModel(Class<VM> modelClass) {
+        return mViewModelProvider.get(modelClass);
+    }
 
     /**
      * showLoadingDialog
