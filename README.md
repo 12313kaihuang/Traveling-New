@@ -11,7 +11,7 @@
 
 ## License
 ```
-Copyright 2019 Traveling-New of copyright 12313kaihuang
+Copyright 2019 12313kaihuang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
