@@ -6,11 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+<!--        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
     </style>
 
     <!--  SplashActivity  可以自己再设置一个WindowBackground属性-->
-    <style name="BaseAppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <!-- 自己设置图片背景 -->
         <item name="android:windowBackground">@color/transparent</item>

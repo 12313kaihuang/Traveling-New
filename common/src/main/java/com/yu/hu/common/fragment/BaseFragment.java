@@ -41,6 +41,7 @@ public abstract class BaseFragment<D extends ViewDataBinding> extends Fragment {
 
     protected Context mContext;
     protected D mDataBinding;
+    protected View mRootView;
     protected LoadingDialog mLoadingDialog;
     protected LayoutInflater mLayoutInflater;
 
@@ -51,19 +52,20 @@ public abstract class BaseFragment<D extends ViewDataBinding> extends Fragment {
         this.mContext = context;
     }
 
-    @CallSuper
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mLayoutInflater = LayoutInflater.from(mContext);
+    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mLayoutInflater = inflater;
+        mDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        mRootView = mDataBinding.getRoot();
+        return mRootView;
     }
 
-    @Nullable
+    @CallSuper
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mDataBinding = DataBindingUtil.inflate(mLayoutInflater, getLayoutId(), container, false);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         onInitView(savedInstanceState);
-        return mDataBinding.getRoot();
+        onInitEvents(mRootView, savedInstanceState);
     }
 
     /**
@@ -73,13 +75,6 @@ public abstract class BaseFragment<D extends ViewDataBinding> extends Fragment {
      */
     protected void onInitView(@Nullable Bundle savedInstanceState) {
 
-    }
-
-    @CallSuper
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        onInitEvents(view, savedInstanceState);
     }
 
     /**

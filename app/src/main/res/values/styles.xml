@@ -8,8 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- v21有适配 -->
-    <style name="AppTheme.Launcher" parent="BaseAppTheme.Launcher">
+    <!-- v21 v28有适配 -->
+    <style name="AppTheme.Splash" parent="BaseAppTheme.Splash">
         <item name="android:windowBackground">@drawable/layer_launcher</item>
         <item name="android:windowIsTranslucent">false</item>
     </style>

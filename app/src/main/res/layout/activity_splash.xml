@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.yu.hu.traveling.vm.SplashViewModel" />
@@ -19,14 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/img"
             android:layout_marginBottom="150dp"
+            android:contentDescription="@string/img"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_splash" />
+            tools:src="@drawable/ic_launcher_splash" />
 
         <TextView
             android:id="@+id/tv_skip"
-            text="@{viewModel.translate2String(viewModel.getRestTime())}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
@@ -34,6 +32,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/bg_skip"
+            android:text="@{viewModel.translate2String(viewModel.getRestTime())}"
             android:textColor="@color/white"
             tools:text="跳过 2 s" />
     </FrameLayout>
