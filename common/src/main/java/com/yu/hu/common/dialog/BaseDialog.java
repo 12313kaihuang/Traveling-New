@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.yu.hu.common.R;
 import com.yu.hu.common.application.BaseApplication;
 import com.yu.hu.common.exception.DialogShowErrorException;
@@ -126,6 +124,8 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
 
     protected BtnClickListener positiveBtnClickListener;
 
+    protected ShowErrorListener showErrorListener;
+
     /**
      * 需要注册{@link BaseApplication}才能使用
      * <p>
@@ -148,7 +148,12 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
                 return;
             }
         }
-        throw new DialogShowErrorException("Application or TopActivity is error");
+
+        if (showErrorListener != null) {
+            showErrorListener.onShowError();
+        }else {
+            throw new DialogShowErrorException("Application or TopActivity is error");
+        }
     }
 
     /**
@@ -159,6 +164,15 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      */
     public void show(FragmentManager fragmentManager) {
         show(fragmentManager, null);
+    }
+
+    /**
+     * show with showErrorListener
+     * @param showErrorListener showErrorListener
+     */
+    public void show(ShowErrorListener showErrorListener) {
+        setShowErrorListener(showErrorListener);
+        show();
     }
 
     /**
@@ -400,6 +414,17 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
         return (DF) this;
     }
 
+
+    /**
+     * 设置show失败时的错误
+     *
+     * @param showErrorListener showErrorListener
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public DF setShowErrorListener(ShowErrorListener showErrorListener) {
+        this.showErrorListener = showErrorListener;
+        return (DF) this;
+    }
     /* **************************通用的setter方法****************************** */
 
     public DF setCancelAbility(boolean cancelable) {
@@ -469,5 +494,12 @@ public abstract class BaseDialog<DF extends BaseDialog, DB extends ViewDataBindi
      */
     public interface BtnClickListener {
         void onBtnClicked(View v);
+    }
+
+    /**
+     * showError
+     */
+    public interface ShowErrorListener {
+        void onShowError();
     }
 }
